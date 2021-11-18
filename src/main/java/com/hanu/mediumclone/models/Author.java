@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +24,7 @@ public class Author {
     private long id;
 
     @Column(name = "author_name", nullable = false)
+    @NotEmpty(message = "Lomdom")
     private String name;
 
     @OneToMany(mappedBy = "author")

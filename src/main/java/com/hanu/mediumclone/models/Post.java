@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "post")
@@ -17,6 +21,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,19 +29,20 @@ public class Post {
 
     @Column(nullable = false)
     @NotEmpty(message = "Title can not be empty")
-    @Max(value = 50, message = "Exceed title limit (50 characters)")
+    @Length(max = 50, message = "Exceed length limit (50)")
     private String title;
 
     @Column(nullable = false)
     @NotEmpty(message = "Content can not be empty")
     private String content;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    @NotEmpty(message = "Author can not be empty")
+    @NotNull(message = "Author can not be empty")
     private Author author;
 
-    @Column(name = "created_at",nullable = false)
+    @Column(name = "created_at")
+    @CreatedDate()
     private Instant createdAt;
 
 }

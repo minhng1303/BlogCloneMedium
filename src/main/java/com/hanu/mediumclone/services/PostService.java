@@ -11,16 +11,23 @@ import com.hanu.mediumclone.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import javax.transaction.Transactional;
+
 @Service
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostService {
-	
-	@Autowired
-	private PostRepository postRepository;
 
-	public List<Post> findAll() {
-		return postRepository.findAll();
-	}
+    @Autowired
+    private PostRepository postRepository;
 
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    @Transactional
+    public Post createPost(Post post) {
+        Post createdPost = postRepository.save(post);
+        return createdPost;
+    }
 }
