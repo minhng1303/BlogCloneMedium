@@ -13,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Entity
 @Table(name = "post")
@@ -42,7 +41,7 @@ public class Post {
     private Author author;
 
     @Column(name = "created_at")
-    @CreatedDate()
+    @CreatedDate
     private Instant createdAt;
 
 }

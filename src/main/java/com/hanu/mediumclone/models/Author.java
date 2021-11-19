@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "author")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Author {
     private long id;
 
     @Column(name = "author_name", nullable = false)
-    @NotEmpty(message = "Lomdom")
+    @NotEmpty(message = "Author name can not be empty")
     private String name;
 
     @OneToMany(mappedBy = "author")
