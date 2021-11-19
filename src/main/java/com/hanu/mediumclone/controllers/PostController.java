@@ -8,6 +8,7 @@ import com.hanu.mediumclone.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +30,9 @@ public class PostController {
 	}
 	
 	@PostMapping("/create")
-    public ResponseEntity<Post> createPost(@RequestBody @Valid Post post) {
+    public ResponseEntity<Post> createPost(@RequestBody @Valid Post post, BindingResult bindingResult) throws Exception {
 		Post createdPost = postService.createPost(post);
-		return new ResponseEntity<>(createdPost, HttpStatus.OK);
+		return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     }
 
 }
